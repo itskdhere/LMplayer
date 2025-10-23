@@ -5,31 +5,33 @@ import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   return (
-    <nav>
-      <div className="flex justify-between items-center w-full px-4 py-2 bg-stone-800 text-white">
-        <div className="flex justify-center items-center gap-1">
-          <Image
-            src="/logo.png"
-            alt="LMplayer"
-            height={500}
-            width={500}
-            className="size-7 select-none"
-          />
-          <p className="text-lg font-semibold">LMplayer</p>
-        </div>
-
-        <div className="flex justify-center items-center gap-1">
-          <Link
-            href="https://github.com/itskdhere"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="ghost" size="sm" className="rounded-full">
-              <IconBrandGithub size={20} />
-            </Button>
-          </Link>
-        </div>
+    <div className="flex justify-between items-center w-full px-5 py-2 rounded-full bg-stone-900 text-gray-100">
+      <div className="flex justify-center items-center gap-1">
+        <Image
+          src="/logo.png"
+          alt="LMplayer"
+          height={500}
+          width={500}
+          className="size-7 select-none"
+        />
+        <p className="text-lg cursor-default">LMplayer</p>
       </div>
-    </nav>
+
+      <div className="flex justify-center items-center gap-1">
+        <Link
+          href="https://github.com/itskdhere"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button
+            variant="outline"
+            size="icon-sm"
+            className="rounded-full hover:cursor-pointer"
+          >
+            <IconBrandGithub className="size-4" />
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 }
