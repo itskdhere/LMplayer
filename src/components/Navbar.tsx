@@ -37,7 +37,7 @@ export default function Navbar({
         )}
 
         <Link
-          href="https://github.com/itskdhere"
+          href="https://github.com/itskdhere/LMplayer"
           target="_blank"
           rel="noopener noreferrer"
         >

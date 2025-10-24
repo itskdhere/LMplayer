@@ -61,7 +61,7 @@ export default function FileSelector({
     filesList.current = files.map((f) =>
       f.file instanceof File ? f.file : new File([], f.file.name)
     );
-  }, [files]);
+  }, [files, filesList]);
 
   const handleContinue = () => {
     setIsFileSelector(false);
