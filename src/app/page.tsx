@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import FileSelector from "@/components/FileSelector";
+import Player from "@/components/Player";
 
 export default function Home() {
   const [isFileSelector, setIsFileSelector] = useState<boolean>(true);
@@ -22,9 +23,9 @@ export default function Home() {
             className="min-h-full sm:w-xl md:w-2xl lg:w-3xl xl:w-4xl"
           />
         ) : (
-          <div className="flex justify-center items-center">
-            <h1>Player</h1>
-          </div>
+          <section className="flex justify-center items-center">
+            <Player file={filesList.current[0]} className="p-5" />
+          </section>
         )}
       </main>
     </>

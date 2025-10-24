@@ -53,7 +53,7 @@ export default function FileSelector({
       getInputProps,
     },
   ] = useFileUpload({
-    multiple: true,
+    multiple: false,
     accept: "image/*,video/*,audio/*",
   });
 
