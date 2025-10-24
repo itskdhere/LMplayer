@@ -9,10 +9,27 @@ export default function Home() {
   const [isFileSelector, setIsFileSelector] = useState<boolean>(true);
   const filesList = useRef<File[]>([]);
 
+  useEffect(() => {
+    if (isFileSelector) {
+      filesList.current = [];
+    }
+  }, [isFileSelector]);
+
+  useEffect(() => {
+    return () => {
+      filesList.current.forEach((file) => {
+        URL.revokeObjectURL(URL.createObjectURL(file));
+      });
+    };
+  }, []);
+
   return (
     <>
       <nav className="pt-3 px-3">
-        <Navbar />
+        <Navbar
+          isFileSelector={isFileSelector}
+          setIsFileSelector={setIsFileSelector}
+        />
       </nav>
 
       <main className="flex justify-center items-center min-w-full min-h-[calc(100vh-60px)] bg-stone-950">
