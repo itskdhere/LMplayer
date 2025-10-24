@@ -31,10 +31,14 @@ const getFileIcon = (file: { file: File | { type: string; name: string } }) => {
 
 export default function FileSelector({
   className,
-  setFiles,
+  filesList,
+  setIsFileSelector,
 }: {
   className?: string;
-  setFiles: (files: File[]) => void;
+  filesList: {
+    current: File[];
+  };
+  setIsFileSelector: (value: boolean) => void;
 }) {
   const [
     { files, isDragging, errors },
@@ -54,17 +58,19 @@ export default function FileSelector({
   });
 
   useEffect(() => {
-    if (files.length > 0) {
-      setFiles(
-        files.map((f) =>
-          f.file instanceof File ? f.file : new File([], f.file.name)
-        )
-      );
-    }
+    filesList.current = files.map((f) =>
+      f.file instanceof File ? f.file : new File([], f.file.name)
+    );
   }, [files]);
 
+  const handleContinue = () => {
+    setIsFileSelector(false);
+  };
+
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
+    <section
+      className={cn("flex flex-col gap-2 p-5 border rounded-xl", className)}
+    >
       {/* Drop area */}
       <div
         role="button"
@@ -184,6 +190,7 @@ export default function FileSelector({
                 size="sm"
                 variant="default"
                 className="leading-tight hover:cursor-pointer"
+                onClick={handleContinue}
               >
                 <span>Continue</span>
                 <IconArrowRight className="size-4" aria-hidden="true" />
@@ -192,6 +199,6 @@ export default function FileSelector({
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 }

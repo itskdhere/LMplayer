@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import FileSelector from "@/components/FileSelector";
 
 export default function Home() {
-  const [files, setFiles] = useState<File[]>([]);
+  const [isFileSelector, setIsFileSelector] = useState<boolean>(true);
+  const filesList = useRef<File[]>([]);
 
   return (
     <>
@@ -13,11 +14,18 @@ export default function Home() {
         <Navbar />
       </nav>
 
-      <main className="flex justify-center items-center p-5 max-[415px]:p-0.5 w-full min-h-[calc(100vh-75px)] bg-stone-950">
-        <FileSelector
-          setFiles={setFiles}
-          className="min-h-full border p-5 max-[415px]:p-0.5 rounded-xl sm:w-xl md:w-2xl lg:w-3xl xl:w-4xl"
-        />
+      <main className="flex justify-center items-center min-w-full min-h-[calc(100vh-60px)] bg-stone-950">
+        {isFileSelector ? (
+          <FileSelector
+            filesList={filesList}
+            setIsFileSelector={setIsFileSelector}
+            className="min-h-full sm:w-xl md:w-2xl lg:w-3xl xl:w-4xl"
+          />
+        ) : (
+          <div className="flex justify-center items-center">
+            <h1>Player</h1>
+          </div>
+        )}
       </main>
     </>
   );
