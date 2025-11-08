@@ -34,8 +34,8 @@ export const getFileIcon = (file: {
     return <IconVideo className="size-5 opacity-70 text-emerald-500" />;
   } else if (fileType.includes("audio/")) {
     return <IconMusic className="size-5 opacity-70 text-rose-500" />;
-  } else if (fileType.startsWith("image/")) {
-    return <IconPhoto className="size-5 opacity-70 text-blue-500" />;
+    // } else if (fileType.startsWith("image/")) {
+    //   return <IconPhoto className="size-5 opacity-70 text-blue-500" />;
   }
   return <IconFile className="size-5 opacity-60" />;
 };

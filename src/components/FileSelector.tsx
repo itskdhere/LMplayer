@@ -6,28 +6,11 @@ import { Button } from "@/components/ui/button";
 import {
   IconExclamationCircle,
   IconFilePlus,
-  IconFile,
-  IconVideo,
-  IconMusic,
-  IconPhoto,
   IconTrash,
   IconArrowRight,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-
-const getFileIcon = (file: { file: File | { type: string; name: string } }) => {
-  const fileType = file.file instanceof File ? file.file.type : file.file.type;
-  // const fileName = file.file instanceof File ? file.file.name : file.file.name;
-
-  if (fileType.includes("video/")) {
-    return <IconVideo className="size-5 opacity-70 text-emerald-500" />;
-  } else if (fileType.includes("audio/")) {
-    return <IconMusic className="size-5 opacity-70 text-rose-500" />;
-  } else if (fileType.startsWith("image/")) {
-    return <IconPhoto className="size-5 opacity-70 text-blue-500" />;
-  }
-  return <IconFile className="size-5 opacity-60" />;
-};
+import { getFileIcon } from "./Playlist";
 
 export default function FileSelector({
   className,
@@ -53,8 +36,8 @@ export default function FileSelector({
       getInputProps,
     },
   ] = useFileUpload({
-    accept: "image/*,video/*,audio/*",
     multiple: true,
+    accept: "video/*,audio/*",
   });
 
   useEffect(() => {
@@ -102,9 +85,9 @@ export default function FileSelector({
           <div className="flex flex-wrap justify-center gap-1 text-sm text-muted-foreground/70">
             <span>Video</span>
             <span>•</span>
-            <span>Photo</span>
-            <span>•</span>
             <span>Audio</span>
+            {/* <span>Photo</span>
+            <span>•</span> */}
           </div>
         </div>
       </div>

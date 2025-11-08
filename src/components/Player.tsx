@@ -3,6 +3,7 @@ import {
   MediaPlayer,
   MediaProvider,
   type VideoMimeType,
+  type AudioMimeType,
 } from "@vidstack/react";
 import {
   DefaultVideoLayout,
@@ -24,17 +25,19 @@ export default function Player({
     <div
       className={cn("flex justify-center items-center max-w-6xl", className)}
     >
-      <MediaPlayer
-        title={file.name}
-        src={{
-          src: URL.createObjectURL(file),
-          type: file.type as VideoMimeType,
-        }}
-      >
-        <MediaProvider />
-        <DefaultAudioLayout icons={defaultLayoutIcons} />
-        <DefaultVideoLayout icons={defaultLayoutIcons} />
-      </MediaPlayer>
+      {file && (
+        <MediaPlayer
+          title={file.name}
+          src={{
+            src: URL.createObjectURL(file),
+            type: file.type as VideoMimeType | AudioMimeType,
+          }}
+        >
+          <MediaProvider />
+          <DefaultVideoLayout icons={defaultLayoutIcons} />
+          <DefaultAudioLayout icons={defaultLayoutIcons} />
+        </MediaPlayer>
+      )}
     </div>
   );
 }
