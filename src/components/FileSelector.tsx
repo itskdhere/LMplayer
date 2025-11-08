@@ -53,8 +53,8 @@ export default function FileSelector({
       getInputProps,
     },
   ] = useFileUpload({
-    multiple: false,
     accept: "image/*,video/*,audio/*",
+    multiple: true,
   });
 
   useEffect(() => {

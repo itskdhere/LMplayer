@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import FileSelector from "@/components/FileSelector";
 import Player from "@/components/Player";
@@ -8,12 +8,11 @@ import Player from "@/components/Player";
 export default function Home() {
   const [isFileSelector, setIsFileSelector] = useState<boolean>(true);
   const filesList = useRef<File[]>([]);
+  const [currentFile, setCurrentFile] = useState<File>(filesList.current[0]);
 
   useEffect(() => {
-    if (isFileSelector) {
-      filesList.current = [];
-    }
-  }, [isFileSelector]);
+    setCurrentFile(filesList.current[0]);
+  }, [filesList.current]);
 
   useEffect(() => {
     return () => {
@@ -28,7 +27,8 @@ export default function Home() {
       <nav className="pt-3 px-3">
         <Navbar
           isFileSelector={isFileSelector}
-          setIsFileSelector={setIsFileSelector}
+          filesList={filesList.current}
+          setCurrentFile={setCurrentFile}
         />
       </nav>
 
@@ -41,7 +41,7 @@ export default function Home() {
           />
         ) : (
           <section className="flex justify-center items-center">
-            <Player file={filesList.current[0]} className="p-5" />
+            <Player file={currentFile} className="p-5" />
           </section>
         )}
       </main>

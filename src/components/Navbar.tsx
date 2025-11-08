@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { IconFilePlus, IconBrandGithub } from "@tabler/icons-react";
+import { IconBrandGithub } from "@tabler/icons-react";
+import Playlist from "./Playlist";
 
 export default function Navbar({
   isFileSelector,
-  setIsFileSelector,
+  filesList,
+  setCurrentFile,
 }: {
   isFileSelector: boolean;
-  setIsFileSelector: (value: boolean) => void;
+  filesList: File[];
+  setCurrentFile: (file: File) => void;
 }) {
   return (
     <div className="flex justify-between items-center w-full px-5 py-2 rounded-full bg-stone-900 text-gray-100">
@@ -25,15 +28,7 @@ export default function Navbar({
 
       <div className="flex justify-center items-center gap-2">
         {!isFileSelector && (
-          <Button
-            variant="default"
-            size="sm"
-            className="rounded-full hover:cursor-pointer"
-            onClick={() => setIsFileSelector(!isFileSelector)}
-          >
-            <IconFilePlus className="size-4" />
-            <span className="leading-tight">New File</span>
-          </Button>
+          <Playlist filesList={filesList} setCurrentFile={setCurrentFile} />
         )}
 
         <Link
