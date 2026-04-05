@@ -7,10 +7,12 @@ import Playlist from "./Playlist";
 export default function Navbar({
   isFileSelector,
   filesList,
+  setFilesList,
   setCurrentFile,
 }: {
   isFileSelector: boolean;
   filesList: File[];
+  setFilesList: (files: File[]) => void;
   setCurrentFile: (file: File) => void;
 }) {
   return (
@@ -28,7 +30,11 @@ export default function Navbar({
 
       <div className="flex justify-center items-center gap-2">
         {!isFileSelector && (
-          <Playlist filesList={filesList} setCurrentFile={setCurrentFile} />
+          <Playlist
+            filesList={filesList}
+            setFilesList={setFilesList}
+            setCurrentFile={setCurrentFile}
+          />
         )}
 
         <Link

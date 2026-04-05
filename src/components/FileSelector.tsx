@@ -14,13 +14,11 @@ import { getFileIcon } from "./Playlist";
 
 export default function FileSelector({
   className,
-  filesList,
+  setFilesList,
   setIsFileSelector,
 }: {
   className?: string;
-  filesList: {
-    current: File[];
-  };
+  setFilesList: (files: File[]) => void;
   setIsFileSelector: (value: boolean) => void;
 }) {
   const [
@@ -41,10 +39,12 @@ export default function FileSelector({
   });
 
   useEffect(() => {
-    filesList.current = files.map((f) =>
-      f.file instanceof File ? f.file : new File([], f.file.name)
+    setFilesList(
+      files.map((f) =>
+        f.file instanceof File ? f.file : new File([], f.file.name)
+      )
     );
-  }, [files, filesList]);
+  }, [files, setFilesList]);
 
   const handleContinue = () => {
     setIsFileSelector(false);
@@ -54,7 +54,6 @@ export default function FileSelector({
     <section
       className={cn("flex flex-col gap-2 p-5 border rounded-xl", className)}
     >
-      {/* Drop area */}
       <div
         role="button"
         onClick={openFileDialog}
@@ -68,7 +67,7 @@ export default function FileSelector({
         <input
           {...getInputProps()}
           className="sr-only"
-          aria-label="Add files"
+          aria-label="Add File(s)"
         />
 
         <div className="flex flex-col items-center justify-center text-center">
@@ -78,9 +77,9 @@ export default function FileSelector({
           >
             <IconFilePlus className="size-6 opacity-60" />
           </div>
-          <p className="mb-1.5 text-lg font-medium">Add Files</p>
+          <p className="mb-1.5 text-lg font-medium">Add File(s)</p>
           <p className="mb-2 text-muted-foreground">
-            Drag & Drop / Click to browse files
+            Drag & Drop / Click to browse file(s)
           </p>
           <div className="flex flex-wrap justify-center gap-1 text-sm text-muted-foreground/70">
             <span>Video</span>
@@ -102,7 +101,6 @@ export default function FileSelector({
         </div>
       )}
 
-      {/* File list */}
       {files.length > 0 && (
         <div className="space-y-2">
           {files.map((file) => (
@@ -147,7 +145,7 @@ export default function FileSelector({
               <Button
                 size="icon"
                 variant="ghost"
-                className="-me-2 size-8 text-muted-foreground/80 hover:bg-transparent hover:text-foreground hover:cursor-pointer"
+                className="-me-2 size-8 text-muted-foreground/80 hover:bg-transparent hover:text-foreground hover:cursor-pointer transition-colors"
                 onClick={() => removeFile(file.id)}
                 aria-label="Remove file"
               >
@@ -156,7 +154,6 @@ export default function FileSelector({
             </div>
           ))}
 
-          {/* Action buttons */}
           {files.length > 0 && (
             <div className="flex justify-between items-center mt-5">
               <Button
